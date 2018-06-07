@@ -5,6 +5,9 @@ if(!isset($_GET['id'])) {
     redirect_to(url_for('/staff/subjects/index.php'));
 }
 $id = $_GET['id'];
+$menu_name = '';
+$position = '';
+$visible = '';
 
 if(is_post_request()) {
 
@@ -19,9 +22,7 @@ if(is_post_request()) {
     echo "Position: " . $position . "<br />";
     echo "Visible: " . $visible . "<br />";
     
-    } else {
-        
-}
+    } 
 
 ?>
 
