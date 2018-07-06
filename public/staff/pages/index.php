@@ -2,8 +2,8 @@
 
 <?php
 
-  $sql = "SELECT * FROM pages ";
-  $sql .= "ORDER BY position ASC";
+  /*$sql = "SELECT * FROM pages ";
+  $sql .= "ORDER BY position ASC";*/
   $page_set = find_all_pages();
 
   /*$pages = [
@@ -28,6 +28,7 @@
   	<table class="list">
   	  <tr>
         <th>ID</th>
+        <th>Subject ID</th>
         <th>Position</th>
         <th>Visible</th>
   	    <th>Name</th>
@@ -39,6 +40,7 @@
       <?php while($page= mysqli_fetch_assoc($page_set)) { ?>
         <tr>
           <td><?php echo h($page['id']); ?></td>
+          <td><?php echo h($page['subject_id']); ?></td>
           <td><?php echo h($page['position']); ?></td>
           <td><?php echo $page['visible'] == 1 ? 'true' : 'false'; ?></td>
     	    <td><?php echo h($page['menu_name']); ?></td>
@@ -50,7 +52,7 @@
   	</table>
     
       <?php 
-        mysqli_free_result($subject_set);
+        mysqli_free_result($page_set);
       ?>
 
   </div>
