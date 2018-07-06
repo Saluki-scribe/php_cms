@@ -1,6 +1,7 @@
 <?php 
 
 require_once('../../../private/initialize.php'); 
+
 if(!isset($_GET['id'])) {
     redirect_to(url_for('/staff/pages/index.php'));
 }
@@ -23,6 +24,7 @@ if(is_post_request()) {
     
     } else {
         $page = find_page_by_id($id);
+        
         $page_set = find_all_pages();
         $page_count = mysqli_num_rows($page_set);
         mysqli_free_result($page_set);

@@ -6,8 +6,8 @@ if(is_post_request()) {
     // Handle form values sent by new.php
 
 $page = [];
-$page['menu_name'] = $_POST['menu_name'] ?? '';
 $page['subject_id'] = $_POST['subject_id'] ?? '';
+$page['menu_name'] = $_POST['menu_name'] ?? '';
 $page['position'] = $_POST['position'] ?? '';
 $page['visible'] = $_POST['visible'] ?? '';
 $page['content'] = $_POST['content'] ?? '';

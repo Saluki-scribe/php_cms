@@ -110,6 +110,7 @@
 
     function insert_page($page) {
         global $db;
+        
         $sql = "INSERT INTO pages ";
         $sql .= "(subject_id, menu_name, position, visible, content) ";
         $sql .= "VALUES (";

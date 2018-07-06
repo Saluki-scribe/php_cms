@@ -21,13 +21,14 @@ $page = find_page_by_id($id);
         <h1>Page: <?php echo h($page['menu_name']); ?></h1>
 
         <div class="attributes">
+            <?php $subject = find_subject_by_id($page['subject_id']); ?>
             <dl>
                 <dt>Menu Name</dt>
                 <dd><?php echo h($page['menu_name']); ?></dd>
             </dl>
             <dl>
-                <dt>Subject Id</dt>
-                <dd><?php echo h($page['subject_id']); ?></dd>
+                <dt>Subject</dt>
+                <dd><?php echo h($subject['menu_name']); ?></dd>
             </dl>
             <dl>
                 <dt>Position</dt>
