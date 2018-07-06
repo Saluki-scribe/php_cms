@@ -22,7 +22,7 @@ $page["position"] = $page_count;
         <form action="<?php echo url_for('/staff/pages/create.php'); ?>" method="post">
             <dl>
                 <dt>Subject ID</dt>
-                <dd><input type="text" name="subject_id" value="<?php echo h($subject_id); ?>" /></dd>
+                <dd><input type="text" name="page_id" value="<?php echo h($page_id); ?>" /></dd>
             </dl>
             <dl>
                 <dt>Menu Name</dt>
@@ -50,6 +50,10 @@ $page["position"] = $page_count;
                     <input type="hidden" name="visible" value="0"/>
                     <input type="checkbox" name="visible" value="1"<?php if($visible == "1") { echo " checked"; } ?>/>
                 </dd>
+            </dl>
+            <dl>
+                <dt>Content</dt>
+                <dd><input type="text" name="content" value="<?php echo h($content); ?>" /></dd>
             </dl>
             <div id="operations">
                 <input type="submit" value="Create Page" />
