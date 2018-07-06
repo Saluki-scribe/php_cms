@@ -85,6 +85,16 @@
         }
     }
 
+    function find_all_pages() {
+        global $db;
+
+        $sql = "SELECT * FROM pages ";
+        $sql .= "ORDER BY subject_id ASC, position ASC";
+        $result = mysqli_query($db, $sql);
+        confirm_result_set($result);
+        return $result;
+    }
+
     function find_page_by_id($id) {
         global $db;
         $sql = "SELECT * FROM pages ";
@@ -96,14 +106,26 @@
         return $page; // returns an assoc. array
     }
 
-    function find_all_pages() {
+    function insert_page($page) {
         global $db;
-
-        $sql = "SELECT * FROM pages ";
-        $sql .= "ORDER BY subject_id ASC, position ASC";
-        $result = mysqli_query($db, $sql);
-        confirm_result_set($result);
-        return $result;
+        $sql = "INSERT INTO pages ";
+        $sql .= "(subject_id, menu_name, position, visible, content) ";
+        $sql .= "VALUES (";
+        $sql .= "'" . $page['subject_id'] . "',";
+        $sql .= "'" . $page['menu_name'] . "',";
+        $sql .= "'" . $page['position'] . "',";
+        $sql .= "'" . $page['visible'] . "',";
+        $sql .= "'" . $page['content'] . "'";
+        $sql .= ")";
+        $result = mysqli_query($db, $sql); 
+        // For INSERT statements, $result is true/false
+        if($result) {
+            return true;
+         } else {
+             //INSERT failed
+             echo mysqli_error($db);
+             db_disconnect($db);
+             exit;
+         }
     }
-
 ?>

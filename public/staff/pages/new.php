@@ -2,23 +2,12 @@
 
 require_once('../../../private/initialize.php'); 
 
-$menu_name = '';
-$position = '';
-$visible = '';
+$page_set = find_all_pages();
+$page_count = mysqli_num_rows($page_set) + 1;
+mysqli_free_result($page_set);
 
-if(is_post_request()) {
-
-    // Handle form values sent by new.php
-    
-    $menu_name = $_POST['menu_name'] ?? '';
-    $position = $_POST['position'] ?? '';
-    $visible = $_POST['visible'] ?? '';
-    
-    echo "Form parameters<br />";
-    echo "Menu name: " . $menu_name . "<br />";
-    echo "Position: " . $position . "<br />";
-    echo "Visible: " . $visible . "<br />";   
-}
+$page = [];
+$page["position"] = $page_count;
 ?>
 
 <?php $page_title = 'Create Page'; ?>
@@ -30,7 +19,11 @@ if(is_post_request()) {
     <div class="page new">
         <h1>Create Page</h1>
 
-        <form action="<?php echo url_for('/staff/pages/new.php'); ?>" method="post">
+        <form action="<?php echo url_for('/staff/pages/create.php'); ?>" method="post">
+            <dl>
+                <dt>Subject ID</dt>
+                <dd><input type="text" name="subject_id" value="<?php echo h($subject_id); ?>" /></dd>
+            </dl>
             <dl>
                 <dt>Menu Name</dt>
                 <dd><input type="text" name="menu_name" value="<?php echo h($menu_name); ?>" /></dd>
@@ -39,7 +32,15 @@ if(is_post_request()) {
                 <dt>Position</dt>
                 <dd>
                     <select name="position">
-                        <option value="1"<?php if($position == "1") { echo " selected"; } ?>>1</option>
+                        <?php 
+                        for ($i=1; $i <= $page_count; $i++) {
+                            echo "<option value=\"{$i}\"";
+                            if($page["position"] == $i) {
+                                echo " selected";
+                            }
+                            echo ">{$i}</option>";
+                        }      
+                        ?> 
                     </select>
                 </dd>
             </dl>
@@ -54,13 +55,9 @@ if(is_post_request()) {
                 <input type="submit" value="Create Page" />
             </div>
         </form>
-
-    
+   
     </div>
 
 </div>
-
-
-
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
