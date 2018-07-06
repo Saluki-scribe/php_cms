@@ -20,6 +20,10 @@ if(is_post_request()) {
 
     } else {
         $subject = find_subject_by_id($id);
+
+        $subject_set = find_all_subjects();
+        $subject_count = mysqli_num_rows($subject_set);
+        mysqli_free_result($subject_set);
     }
 
 ?>
