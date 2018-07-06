@@ -7,24 +7,13 @@ if(!isset($_GET['id'])) {
 }
 $id = $_GET['id'];
 
-$subject = find_subject_by_id($id);
-
 if(is_post_request()) {
-    $sql = "DELETE FROM subjects ";
-    $sql .= "WHERE id='" . $id . "' ";
-    $sql .= "LIMIT 1";
 
-    $result = mysqli_query($db, $sql);
+    $result = delete_subject($id);
+    redirect_to(url_for('/staff/subjects/index.php'));
 
-    // For DELETE statments, $result is true/false
-    if($result) {
-        redirect_to(url_for('/staff/subjects/index.php'));
-    } else {
-        // DELETE failed
-        echo mysqli_error($db);
-        db_disconnect($db);
-        exit;
-    }
+} else {
+    $subject = find_subject_by_id($id);
 }
 
 ?>
