@@ -10,6 +10,10 @@
         return $result;
     }
 
+    function find_subject_by_id($id) {
+        
+    }
+
     function find_all_pages() {
         global $db;
 
