@@ -48,45 +48,61 @@ if(is_post_request()) {
         <?php echo display_errors($errors); ?>
 
         <form action="<?php echo url_for('/staff/pages/edit.php?id=' . h(u($id))); ?>" method="post">
-            <dl>
-                <dt>Subject ID</dt>
-                <dd><input type="text" name="subject_id" value="<?php echo h($subject_id); ?>" /></dd>
-            </dl>
-            <dl>
-                <dt>Menu Name</dt>
-                <dd><input type="text" name="menu_name" value="<?php echo h($menu_name); ?>" /></dd>
-            </dl>
-            <dl>
-                <dt>Position</dt>
-                <dd>
-                    <select name="position">
-                            <?php 
-                            for ($i=1; $i <= $page_count; $i++) {
-                                echo "<option value=\"{$i}\"";
-                                if($page["position"] == $i) {
-                                    echo " selected";
-                                }
-                                echo ">{$i}</option>";
-                            }      
-                            ?> 
-                    </select>
-                </dd>
-            </dl>
-            <dl>
-                <dt>Visible</dt>
-                <dd>
-                    <input type="hidden" name="visible" value="0"/>
-                    <input type="checkbox" name="visible" value="1"<?php if($visible == "1") { echo " checked"; } ?>/>
-                </dd>
-            </dl>
-            <dl>
-                <dt>Content</dt>
-                <dd><input type="text" name="content" value="<?php echo h($content); ?>" /></dd>
-            </dl>
-            <div id="operations">
-                <input type="submit" value="Edit Page" />
-            </div>
-        </form>
+      <dl>
+        <dt>Subject</dt>
+        <dd>
+          <select name="subject_id">
+          <?php
+            $subject_set = find_all_subjects();
+            while($subject = mysqli_fetch_assoc($subject_set)) {
+              echo "<option value=\"" . h($subject['id']) . "\"";
+              if($page["subject_id"] == $subject['id']) {
+                echo " selected";
+              }
+              echo ">" . h($subject['menu_name']) . "</option>";
+            }
+            mysqli_free_result($subject_set);
+          ?>
+          </select>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Menu Name</dt>
+        <dd><input type="text" name="menu_name" value="<?php echo h($page['menu_name']); ?>" /></dd>
+      </dl>
+      <dl>
+        <dt>Position</dt>
+        <dd>
+          <select name="position">
+            <?php
+              for($i=1; $i <= $page_count; $i++) {
+                echo "<option value=\"{$i}\"";
+                if($page["position"] == $i) {
+                  echo " selected";
+                }
+                echo ">{$i}</option>";
+              }
+            ?>
+          </select>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Visible</dt>
+        <dd>
+          <input type="hidden" name="visible" value="0" />
+          <input type="checkbox" name="visible" value="1"<?php if($page['visible'] == "1") { echo " checked"; } ?> />
+        </dd>
+      </dl>
+      <dl>
+        <dt>Content</dt>
+        <dd>
+          <textarea name="content" cols="60" rows="10"><?php echo h($page['content']); ?></textarea>
+        </dd>
+      </dl>
+      <div id="operations">
+        <input type="submit" value="Edit Page" />
+      </div>
+    </form>
 
     </div>
 
